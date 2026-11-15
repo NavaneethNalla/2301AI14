@@ -1,7 +1,9 @@
 # Assignment 7: Solidity Escrow from Specification to Deployment
 
 **Course**: Practical Blockchain Engineering (Dr. Mayank Agarwal, IIT Patna)  
+**Student Name**: Navaneeth Nalla  
 **Student Roll**: `2301AI14`  
+**Webmail**: `navaneeth_2301ai14@iitp.ac.in`  
 **Contract**: `Escrow.sol`  
 
 ---

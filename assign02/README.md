@@ -1,7 +1,9 @@
 # Assignment 2: Merkle Trees and Proofs of Inclusion (`merkle`)
 
 **Course**: Practical Blockchain Engineering (Dr. Mayank Agarwal, IIT Patna)  
+**Student Name**: Navaneeth Nalla  
 **Student Roll**: `2301AI14`  
+**Webmail**: `navaneeth_2301ai14@iitp.ac.in`  
 **Package**: `merkle`  
 
 ---

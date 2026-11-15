@@ -1,7 +1,9 @@
 # Assignment 6: A Peer-to-Peer Mempool and Block Relay Network (`p2p`)
 
 **Course**: Practical Blockchain Engineering (Dr. Mayank Agarwal, IIT Patna)  
+**Student Name**: Navaneeth Nalla  
 **Student Roll**: `2301AI14`  
+**Webmail**: `navaneeth_2301ai14@iitp.ac.in`  
 **Package**: `p2p`  
 
 ---

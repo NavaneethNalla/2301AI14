@@ -1,7 +1,9 @@
 # Assignment 4: A UTXO Ledger and Transaction Validator (`utxo`)
 
 **Course**: Practical Blockchain Engineering (Dr. Mayank Agarwal, IIT Patna)  
+**Student Name**: Navaneeth Nalla  
 **Student Roll**: `2301AI14`  
+**Webmail**: `navaneeth_2301ai14@iitp.ac.in`  
 **Package**: `utxo`  
 
 ---
