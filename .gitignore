@@ -29,7 +29,7 @@ htmlcov/
 venv/
 .venv/
 ENV/
-
+# 
 # Node / Hardhat / Foundry
 node_modules/
 npm-debug.log*
