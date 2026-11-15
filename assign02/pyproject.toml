@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "merkle"
+version = "1.0.0"
+description = "Assignment 2: Merkle Trees and Proofs of Inclusion (IIT Patna CSE)"
+authors = [{ name = "2301AI14" }]
+requires-python = ">=3.11"
+dependencies = []
+
+[project.optional-dependencies]
+test = [
+    "pytest>=8.0.0",
+]
+
+[project.scripts]
+merkle = "merkle.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+

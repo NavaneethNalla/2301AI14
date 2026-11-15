@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "p2p"
+version = "1.0.0"
+description = "Assignment 6: A Peer-to-Peer Mempool and Block Relay Network (IIT Patna CSE)"
+authors = [{ name = "2301AI14" }]
+requires-python = ">=3.11"
+dependencies = [
+    "cryptography>=41.0.0",
+]
+
+[project.optional-dependencies]
+test = [
+    "pytest>=8.0.0",
+    "pytest-asyncio>=0.23.0",
+]
+
+[project.scripts]
+p2p = "p2p.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+asyncio_mode = "auto"
+

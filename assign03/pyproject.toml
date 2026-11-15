@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "wallet"
+version = "1.0.0"
+description = "Assignment 3: Keys, Addresses, and Signed Transactions (IIT Patna CSE)"
+authors = [{ name = "2301AI14" }]
+requires-python = ">=3.11"
+dependencies = [
+    "cryptography>=41.0.0",
+]
+
+[project.optional-dependencies]
+test = [
+    "pytest>=8.0.0",
+]
+
+[project.scripts]
+wallet = "wallet.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+
