@@ -1,0 +1,54 @@
+================================================================================
+VIDEO RECORDING NARRATION SCRIPT: ASSIGNMENT 4 (utxo)
+Course: Practical Blockchain Engineering (Dr. Mayank Agarwal, IIT Patna)
+Student: Navaneeth Nalla | Roll: 2301AI14 | Webmail: navaneeth_2301ai14@iitp.ac.in
+================================================================================
+
+[HOW TO USE THIS SCRIPT]:
+- Read the lines marked with "SPOKEN NARRATION:" aloud into your microphone.
+- Press [ENTER] in your terminal when running the demo script (demo.bat or demo.ps1) to trigger each command.
+- The demo script will display the exact command output matching your narration.
+
+--------------------------------------------------------------------------------
+[STEP 1: INTRODUCTION]
+--------------------------------------------------------------------------------
+SPOKEN NARRATION:
+"Hello everyone and Dr. Mayank Agarwal.
+My name is Navaneeth Nalla, roll number 2301AI14, from IIT Patna.
+In this video, I am demonstrating Assignment 4: A UTXO Ledger and Transaction Validator using the 'utxo' package.
+The purpose of this assignment is to implement the discrete state-transition logic behind Bitcoin-like UTXO ownership—consuming existing outputs, creating new ones, enforcing value conservation, and preventing double spending—without relying on mining or networking yet."
+
+--------------------------------------------------------------------------------
+[STEP 2: RUNNING THE ALICE-PAYS-BOB EXECUTION SCENARIO]
+--------------------------------------------------------------------------------
+COMMAND TO RUN:
+python -m utxo.cli demo-alice-bob
+
+SPOKEN NARRATION:
+"Now, we run the comprehensive 'demo-alice-bob' scenario specified by the coursework.
+Let us examine the trace on screen:
+First, Alice controls two discrete UTXOs worth 40 and 70 units, giving her a total of 110 units.
+Second, Alice wants to pay Bob 85 units with a fee of 2 units.
+Her wallet runs deterministic Largest-First coin selection:
+Neither 70 nor 40 alone is sufficient, so it selects both inputs (70 + 40 = 110 units).
+The transaction creates two outputs: exactly 85 units for Bob, and 23 units of change returned to Alice.
+The sum of outputs (85 + 23 = 108) plus fee (2) equals the inputs (110).
+The ledger validates the P2PKH script, consumes the old UTXOs, and atomically creates the new UTXOs.
+Notice Submission 1 Result: Transaction successfully accepted into ledger state!
+Third, Mallory intercepts this signed transaction and immediately submits it a second time.
+Because the referenced UTXOs were already consumed, the validator detects the double spend and rejects it with: Referenced output not found in UTXO set!
+Bob does not get paid twice, and state remains strictly atomic."
+
+--------------------------------------------------------------------------------
+[STEP 3: AUTOMATED TEST SUITE VERIFICATION]
+--------------------------------------------------------------------------------
+COMMAND TO RUN:
+pytest -v
+
+SPOKEN NARRATION:
+"Finally, we run the full pytest test suite.
+Notice that all 22 tests pass:
+These test double spends, empty inputs/outputs, zero or negative values, value creation out of thin air, P2PKH signature verification, atomic rollback on validation failure, deterministic coin selection tie-breaking, and snapshot persistence.
+All 22 tests pass with 100% success rate.
+This concludes Assignment 4. Thank you!"
+================================================================================

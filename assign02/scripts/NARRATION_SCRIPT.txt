@@ -1,0 +1,91 @@
+================================================================================
+VIDEO RECORDING NARRATION SCRIPT: ASSIGNMENT 2 (merkle)
+Course: Practical Blockchain Engineering (Dr. Mayank Agarwal, IIT Patna)
+Student: Navaneeth Nalla | Roll: 2301AI14 | Webmail: navaneeth_2301ai14@iitp.ac.in
+================================================================================
+
+[HOW TO USE THIS SCRIPT]:
+- Read the lines marked with "SPOKEN NARRATION:" aloud into your microphone.
+- Press [ENTER] in your terminal when running the demo script (demo.bat or demo.ps1) to trigger each command.
+- The demo script will display the exact command output matching your narration.
+
+--------------------------------------------------------------------------------
+[STEP 1: INTRODUCTION]
+--------------------------------------------------------------------------------
+SPOKEN NARRATION:
+"Hello everyone and Dr. Mayank Agarwal.
+My name is Navaneeth Nalla, roll number 2301AI14, from IIT Patna.
+In this video, I am demonstrating Assignment 2: Merkle Trees and Proofs of Inclusion.
+The purpose of this assignment is to build a production-grade Merkle tree from scratch without third-party Merkle libraries, implementing cryptographic domain separation, odd-leaf handling, inclusion proof generation, independent verification, and scalability benchmarking."
+
+--------------------------------------------------------------------------------
+[STEP 2: COMPUTING MERKLE ROOT & DOMAIN SEPARATION]
+--------------------------------------------------------------------------------
+COMMAND TO RUN:
+python -m merkle.cli root "tx1" "tx2" "tx3" "tx4" "tx5"
+
+SPOKEN NARRATION:
+"First, we calculate the Merkle root for a set of 5 transactions: 'tx1' through 'tx5'.
+Notice two key architectural properties:
+First, cryptographic domain separation: leaves are prefixed with byte 0x00, and internal nodes with byte 0x01. This strictly prevents second-preimage attacks.
+Second, odd-leaf handling: when a layer has an odd count like 5, the solitary node is promoted directly to the next level without duplicate hashing, avoiding CVE-style transaction duplication vulnerabilities."
+
+--------------------------------------------------------------------------------
+[STEP 3: GENERATING AN INCLUSION PROOF]
+--------------------------------------------------------------------------------
+COMMAND TO RUN:
+python -m merkle.cli prove --index 2 "tx1" "tx2" "tx3" "tx4" "tx5" --out proof.json
+
+SPOKEN NARRATION:
+"Next, we generate a cryptographic inclusion proof for leaf index 2, which corresponds to 'tx3'.
+Notice the JSON format output:
+It contains the leaf index 2, total tree size 5, and an ordered list of sibling hashes with their left or right orientation directions.
+This proof provides the logarithmic authentication path needed to reconstruct the exact root."
+
+--------------------------------------------------------------------------------
+[STEP 4: INDEPENDENT PROOF VERIFICATION (SUCCESS PATH)]
+--------------------------------------------------------------------------------
+COMMAND TO RUN:
+python -m merkle.cli verify --leaf "tx3" --proof proof.json --root <ROOT_HEX>
+
+SPOKEN NARRATION:
+"Now, we independently verify this proof using only the original leaf data, the proof JSON file, and the expected Merkle root.
+The verifier reconstructs the parent hashes up the branch.
+As you can see: VERIFICATION SUCCESS!
+The proof confirms cryptographically that 'tx3' is authentic and included in the Merkle root."
+
+--------------------------------------------------------------------------------
+[STEP 5: TAMPER DETECTION & ATTACK REJECTION]
+--------------------------------------------------------------------------------
+COMMAND TO RUN:
+python -m merkle.cli verify --leaf "tx3_tampered" --proof proof.json --root <ROOT_HEX>
+
+SPOKEN NARRATION:
+"To demonstrate fraud detection, what happens if an attacker tries to claim a tampered transaction 'tx3_tampered' under the same proof?
+When we run verify, the tool immediately detects the hash mismatch and prints: VERIFICATION FAILURE!
+The Merkle tree integrity is preserved and any alteration is rejected."
+
+--------------------------------------------------------------------------------
+[STEP 6: PERFORMANCE BENCHMARK (UP TO 100,000 LEAVES)]
+--------------------------------------------------------------------------------
+COMMAND TO RUN:
+python -m merkle.cli benchmark
+
+SPOKEN NARRATION:
+"Next, we execute the automated performance benchmark across 8, 1,024, and 100,000 transactions.
+Notice the execution speeds:
+Building a Merkle tree of 100,000 transactions takes only around 0.12 seconds on this laptop!
+Even with 100,000 leaves, the proof requires only 17 sibling hashes and is less than 2 kilobytes in size, proving the logarithmic O(log N) scaling efficiency of Merkle proofs."
+
+--------------------------------------------------------------------------------
+[STEP 7: AUTOMATED TEST SUITE VERIFICATION]
+--------------------------------------------------------------------------------
+COMMAND TO RUN:
+pytest -v
+
+SPOKEN NARRATION:
+"Finally, we run the comprehensive pytest suite covering empty trees, single leaves, odd and even trees, invalid proof formats, and edge cases.
+All 25 unit tests pass cleanly with 100% success rate.
+This concludes the demonstration for Assignment 2.
+Thank you."
+================================================================================

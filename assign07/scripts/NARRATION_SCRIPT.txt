@@ -1,0 +1,67 @@
+================================================================================
+VIDEO RECORDING NARRATION SCRIPT: ASSIGNMENT 7 (Escrow)
+Course: Practical Blockchain Engineering (Dr. Mayank Agarwal, IIT Patna)
+Student: Navaneeth Nalla | Roll: 2301AI14 | Webmail: navaneeth_2301ai14@iitp.ac.in
+================================================================================
+
+[HOW TO USE THIS SCRIPT]:
+- Read the lines marked with "SPOKEN NARRATION:" aloud into your microphone.
+- Press [ENTER] in your terminal when running the demo script (demo.bat or demo.ps1) to trigger each command.
+- The demo script will display the exact command output matching your narration.
+
+--------------------------------------------------------------------------------
+[STEP 1: INTRODUCTION]
+--------------------------------------------------------------------------------
+SPOKEN NARRATION:
+"Hello everyone and Dr. Mayank Agarwal.
+My name is Navaneeth Nalla, roll number 2301AI14, from IIT Patna.
+In this video, I am demonstrating Assignment 7: Solidity Escrow from Specification to Deployment.
+In this assignment, I designed, implemented, and thoroughly tested a production-grade Escrow smart contract in Solidity 0.8.20 with Hardhat.
+The contract manages secure value transfers between a Buyer, a Seller, and an Arbiter using a formal finite state machine, custom errors, checks-effects-interactions, and pull payments."
+
+--------------------------------------------------------------------------------
+[STEP 2: ARCHITECTURE & FORMAL STATE MACHINE OVERVIEW]
+--------------------------------------------------------------------------------
+COMMAND TO RUN:
+(Display contract structure summary)
+
+SPOKEN NARRATION:
+"Before deploying, let us review the security architecture:
+1. State Machine: The contract begins in the 'Created' state. Once the buyer deposits exact target funds, it transitions to 'Funded'. From 'Funded', the buyer can release payment to 'Released', or either party can raise a dispute transitioning to 'Disputed'. In a dispute, the arbiter resolves the funds either to the buyer or to the seller.
+2. Checks-Effects-Interactions (CEI) & Pull Payments: To prevent reentrancy and denial-of-service, funds are never pushed directly in state transitions. Instead, the contract credits an internal balance ledger, and beneficiaries execute a dedicated 'withdrawFunds' pull-payment transaction.
+3. Access Control: Zero address checks and strict role separation prevent address collision."
+
+--------------------------------------------------------------------------------
+[STEP 3: LOCAL HARDHAT DEPLOYMENT & COMPLETE INTERACTION WORKFLOW]
+--------------------------------------------------------------------------------
+COMMAND TO RUN:
+npm run deploy
+
+SPOKEN NARRATION:
+"Now, we execute the automated deployment and interaction script on our local Hardhat EVM environment.
+Notice the execution steps:
+In Step 1, the Escrow contract is deployed with the Buyer, Seller, Arbiter addresses and a target deposit of 2.0 ETH.
+Initial state is 0, which corresponds to 'Created'.
+In Step 2, the Buyer deposits exactly 2.0 ETH. The state moves to 'Funded'.
+The contract verifies solvency: contract balance equals total liabilities.
+In Step 3, the Buyer releases payment to the Seller.
+The state transitions to 'Released', and 2.0 ETH is credited to the Seller's withdrawable balance.
+In Step 4, the Seller calls 'withdrawFunds' to pull the 2.0 ETH.
+The contract balance drops to 0 ETH, liabilities drop to 0, and solvency is verified.
+Finally, look at the Gas Report Summary on screen:
+Deployment used 965,331 gas, Buyer deposit used 67,202 gas, payment release used 50,228 gas, and pull withdrawal used only 36,053 gas."
+
+--------------------------------------------------------------------------------
+[STEP 4: AUTOMATED UNIT & FUZZ TESTING VERIFICATION]
+--------------------------------------------------------------------------------
+COMMAND TO RUN:
+npm test
+
+SPOKEN NARRATION:
+"Finally, we run the automated Hardhat test suite.
+Notice that all 23 unit and fuzz tests pass:
+Testing constructor zero-address and role-overlap checks, deposit value validation, unauthorized caller rejections, payment release by buyer only, arbiter dispute resolution in favor of both buyer and seller, mutual cancellation workflows, double-withdrawal prevention, and property-based fuzz tests across arbitrary deposit values.
+All 23 tests pass with a 100% pass rate.
+This concludes the video demonstration for Assignment 7 and completes all 7 assignments.
+Thank you very much."
+================================================================================

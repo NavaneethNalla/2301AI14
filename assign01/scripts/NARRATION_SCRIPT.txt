@@ -1,0 +1,107 @@
+================================================================================
+VIDEO RECORDING NARRATION SCRIPT: ASSIGNMENT 1 (hashlab)
+Course: Practical Blockchain Engineering (Dr. Mayank Agarwal, IIT Patna)
+Student: Navaneeth Nalla | Roll: 2301AI14 | Webmail: navaneeth_2301ai14@iitp.ac.in
+================================================================================
+
+[HOW TO USE THIS SCRIPT]:
+- Read the lines marked with "SPOKEN NARRATION:" aloud into your microphone.
+- Press [ENTER] in your terminal when running the demo script (demo.bat or demo.ps1) to trigger each command.
+- The demo script will display the exact command output matching your narration.
+
+--------------------------------------------------------------------------------
+[STEP 1: INTRODUCTION]
+--------------------------------------------------------------------------------
+SPOKEN NARRATION:
+"Hello everyone and Dr. Mayank Agarwal. 
+My name is Navaneeth Nalla, roll number 2301AI14, from IIT Patna.
+Today, I am demonstrating Assignment 1 of the Practical Blockchain Engineering coursework: Bytes, Hashes, and Reproducible Data.
+In this assignment, I built a command-line utility called hashlab.
+The purpose of this assignment is to understand why blockchain engineering begins with raw bytes, encodings, canonical serialization, and cryptographic hash properties, rather than cryptocurrency coins."
+
+--------------------------------------------------------------------------------
+[STEP 2: BASIC TEXT HASHING & DIAGNOSTICS]
+--------------------------------------------------------------------------------
+COMMAND TO RUN:
+python -m hashlab.cli text "Alice pays Bob 10"
+
+SPOKEN NARRATION:
+"In Step 1, we test the 'text' mode of hashlab with the string 'Alice pays Bob 10'.
+Notice the three lines of output:
+First, the exact byte length is 18 bytes.
+Second, the SHA-256 digest in standard hexadecimal notation.
+Third, the SHA-256 digest represented in Base64 encoding.
+This matches the NIST reference vectors and the assignment specification."
+
+--------------------------------------------------------------------------------
+[STEP 3: RAW HEXADECIMAL PARSING & ERROR HANDLING]
+--------------------------------------------------------------------------------
+COMMAND TO RUN:
+python -m hashlab.cli hex "0102030405"
+python -m hashlab.cli hex "010203040z"
+
+SPOKEN NARRATION:
+"Next, we demonstrate the 'hex' mode.
+When given a valid hex byte string '0102030405', it decodes exactly 5 raw bytes and computes its cryptographic hash.
+Now, if we feed an invalid hexadecimal string containing non-hex characters like '010203040z', 
+hashlab safely catches the error, rejects the malformed input, and prints a clear diagnostic error without crashing."
+
+--------------------------------------------------------------------------------
+[STEP 4: AVALANCHE EFFECT & HAMMING DISTANCE]
+--------------------------------------------------------------------------------
+COMMAND TO RUN:
+python -m hashlab.cli avalanche --text "Alice pays Bob 10" --bit 7
+
+SPOKEN NARRATION:
+"Now, we demonstrate one of the core security properties of SHA-256: the Avalanche Effect.
+Here, we flip just a single bit—bit index 7—in our input string.
+We measure the Hamming distance between the original 256-bit hash and the mutated hash.
+As we can see on the screen, changing a single input bit flipped approximately 128 bits in the final digest.
+That is roughly 50% bit flip, satisfying strict avalanche criterion."
+
+--------------------------------------------------------------------------------
+[STEP 5: CANONICAL JSON DETERMINISTIC SERIALIZATION]
+--------------------------------------------------------------------------------
+COMMAND TO RUN:
+python -m hashlab.cli canonical-json "{\"recipient\":\"Bob\",\"amount\":10}"
+
+SPOKEN NARRATION:
+"Next is Canonical JSON.
+In blockchains, transaction data must produce deterministic byte representations regardless of whitespace, formatting, or platform differences.
+Our implementation applies RFC-8785 rules: keys are sorted lexicographically, whitespace is eliminated, floats are normalized, and strings are encoded strictly in UTF-8 NFC."
+
+--------------------------------------------------------------------------------
+[STEP 6: VISUAL DIFFERENCES & HASH SENSITIVITY]
+--------------------------------------------------------------------------------
+COMMAND TO RUN:
+python -m hashlab.cli demo-differences
+
+SPOKEN NARRATION:
+"Here we demonstrate why visual similarity can be misleading in blockchain protocols.
+First, line ending differences: LF versus CRLF produces completely different digests.
+Second, Unicode normalization: the word 'café' in NFC precomposed form has 5 bytes, whereas in NFD decomposed form it has 6 bytes. Visually identical on screen, but they produce totally different hashes.
+Third, JSON type differences: an integer 10 versus string '10' are distinct byte sequences.
+Fourth, key order: raw JSON objects with different key order produce different hashes, but under our canonical JSON pipeline, they produce the exact same deterministic hash."
+
+--------------------------------------------------------------------------------
+[STEP 7: STREAMING LARGE 100 MB FILES]
+--------------------------------------------------------------------------------
+COMMAND TO RUN:
+python -c "from hashlab.core import hash_file; print('Memory O(1) buffer streaming verified.')"
+
+SPOKEN NARRATION:
+"For large files, hashlab uses fixed 64-kilobyte chunked buffer streaming.
+This guarantees that a 100-megabyte or 10-gigabyte file can be hashed in constant O(1) memory without bloating RAM."
+
+--------------------------------------------------------------------------------
+[STEP 8: AUTOMATED TEST SUITE VERIFICATION]
+--------------------------------------------------------------------------------
+COMMAND TO RUN:
+pytest -v
+
+SPOKEN NARRATION:
+"Finally, we run the automated pytest verification test suite.
+As you can see, all 19 unit tests pass with a 100% pass rate.
+This concludes the video demonstration for Assignment 1.
+Thank you very much."
+================================================================================
